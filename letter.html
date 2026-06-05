@@ -261,6 +261,7 @@
             color: #6a4c93;
             cursor: pointer;
             font-size: 1.2rem;
+            width: 30px;
         }
 
         /* Back Button */
@@ -414,7 +415,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>For My Dearest Friend ❤️</h1>
+            <h1>For My Dearest LOVE ❤️</h1>
         </header>
 
         <div class="letter-container">
@@ -422,7 +423,6 @@
         </div>
 
         <div class="video-container" id="video-message">
-            <!-- Replace with your video embed code -->
             <iframe src="about:blank" frameborder="0" allowfullscreen></iframe>
         </div>
 
@@ -449,46 +449,62 @@
             <div class="modal-body">
                 <div class="playlist">
                     <h3 style="margin-bottom: 15px;">Songs That Remind Me of Us 💕</h3>
+                    
+                    <!-- SONG 1 -->
                     <div class="playlist-item">
-                        <img src="3.jpg" alt="Song cover">
+                        <img src="radheshyam.jpg" alt="Song cover">
                         <div class="playlist-item-info">
-                            <div class="playlist-item-title">Our Favorite Memory</div>
-                            <div class="playlist-item-artist">That Artist You Love</div>
+                            <div class="playlist-item-title">Nagumonu Thaarale</div>
+                            <div class="playlist-item-artist">Radhe Shyam</div>
                         </div>
-                        <button class="playlist-item-play"><i class="fas fa-play"></i></button>
+                        <audio id="audio1" src="song1.mp3"></audio>
+                        <button class="playlist-item-play" onclick="togglePlay('audio1', this)"><i class="fas fa-play"></i></button>
                     </div>
+
+                    <!-- SONG 2 -->
                     <div class="playlist-item">
-                        <img src="1.jpg" alt="Song cover">
+                        <img src="Animal.jpg" alt="Song cover">
                         <div class="playlist-item-info">
-                            <div class="playlist-item-title">That Summer Night</div>
-                            <div class="playlist-item-artist">The Adventure Band</div>
+                            <div class="playlist-item-title">Kashmeeru</div>
+                            <div class="playlist-item-artist">Animal</div>
                         </div>
-                        <button class="playlist-item-play"><i class="fas fa-play"></i></button>
+                        <audio id="audio2" src="song2.mp3"></audio>
+                        <button class="playlist-item-play" onclick="togglePlay('audio2', this)"><i class="fas fa-play"></i></button>
                     </div>
+
+                    <!-- SONG 3 -->
                     <div class="playlist-item">
-                        <img src="6.jpg" alt="Song cover">
+                        <img src="gharshana.jpg" alt="Song cover">
                         <div class="playlist-item-info">
-                            <div class="playlist-item-title">Inside Joke Anthem</div>
-                            <div class="playlist-item-artist">Laugh Out Loud</div>
+                            <div class="playlist-item-title">Nanne Nanne</div>
+                            <div class="playlist-item-artist">Gharshana</div>
                         </div>
-                        <button class="playlist-item-play"><i class="fas fa-play"></i></button>
+                        <audio id="audio3" src="song3.mp3"></audio>
+                        <button class="playlist-item-play" onclick="togglePlay('audio3', this)"><i class="fas fa-play"></i></button>
                     </div>
+
+                    <!-- SONG 4 -->
                     <div class="playlist-item">
-                        <img src="2.jpeg" alt="Song cover">
+                        <img src="athadu.jpg" alt="Song cover">
                         <div class="playlist-item-info">
-                            <div class="playlist-item-title">Remember When</div>
-                            <div class="playlist-item-artist">The Friendship Vibes</div>
+                            <div class="playlist-item-title">Avunu Nijam</div>
+                            <div class="playlist-item-artist">Athadu</div>
                         </div>
-                        <button class="playlist-item-play"><i class="fas fa-play"></i></button>
+                        <audio id="audio4" src="song4.mp3"></audio>
+                        <button class="playlist-item-play" onclick="togglePlay('audio4', this)"><i class="fas fa-play"></i></button>
                     </div>
+
+                    <!-- SONG 5 -->
                     <div class="playlist-item">
-                        <img src="5.jpg" alt="Song cover">
+                        <img src="sakhi.jpg" alt="Song cover">
                         <div class="playlist-item-info">
-                            <div class="playlist-item-title">Birthday Wishes</div>
-                            <div class="playlist-item-artist">Happy Songs</div>
+                            <div class="playlist-item-title">Kailove Chedugudu</div>
+                            <div class="playlist-item-artist">Sakhi</div>
                         </div>
-                        <button class="playlist-item-play"><i class="fas fa-play"></i></button>
+                        <audio id="audio5" src="song5.mp3"></audio>
+                        <button class="playlist-item-play" onclick="togglePlay('audio5', this)"><i class="fas fa-play"></i></button>
                     </div>
+
                 </div>
                 <div style="margin-top: 20px;">
                     <a href="#" download class="back-button" style="background: #ffb6c1; border-color: #ffb6c1; color: white;">
@@ -516,8 +532,50 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.5.1/confetti.browser.min.js"></script>
 
     <script>
+        // PLAYLIST FUNCTIONALITY
+        let currentAudio = null;
+        let currentBtn = null;
+
+        function togglePlay(audioId, btnElement) {
+            const audio = document.getElementById(audioId);
+            const icon = btnElement.querySelector('i');
+
+            if (currentAudio === audio) {
+                if (audio.paused) {
+                    audio.play();
+                    icon.classList.remove('fa-play');
+                    icon.classList.add('fa-pause');
+                } else {
+                    audio.pause();
+                    icon.classList.remove('fa-pause');
+                    icon.classList.add('fa-play');
+                }
+                return;
+            }
+
+            if (currentAudio) {
+                currentAudio.pause();
+                currentBtn.querySelector('i').classList.remove('fa-pause');
+                currentBtn.querySelector('i').classList.add('fa-play');
+            }
+
+            audio.play();
+            icon.classList.remove('fa-play');
+            icon.classList.add('fa-pause');
+
+            currentAudio = audio;
+            currentBtn = btnElement;
+
+            audio.onended = function() {
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
+                currentAudio = null;
+                currentBtn = null;
+            };
+        }
+
+
         document.addEventListener('DOMContentLoaded', function() {
-            // Fade in animation
             setTimeout(() => {
                 document.querySelector('.container').style.opacity = 1;
             }, 500);
@@ -537,7 +595,6 @@
                 }
             });
 
-            // Create floating elements
             const floatingElements = [
                 { type: 'heart', color: '#ff6b8a', size: '20px' },
                 { type: 'heart', color: '#f48fb1', size: '30px' },
@@ -555,10 +612,8 @@
                 createFloatingElement(element, index);
             });
 
-            // Cursor effect
             document.addEventListener('mousemove', createCursorEffect);
 
-            // Surprise button functionality
             const surpriseButton = document.getElementById('surprise-button');
             const modalOverlay = document.getElementById('modal-overlay');
             const modalClose = document.getElementById('modal-close');
@@ -576,9 +631,16 @@
 
             modalClose.addEventListener('click', function() {
                 modalOverlay.classList.remove('active');
+                
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentBtn.querySelector('i').classList.remove('fa-pause');
+                    currentBtn.querySelector('i').classList.add('fa-play');
+                    currentAudio = null;
+                    currentBtn = null;
+                }
             });
 
-            // Music controls
             const musicToggle = document.getElementById('music-toggle');
             const musicIcon = document.getElementById('music-icon');
             const backgroundMusic = document.getElementById('background-music');
@@ -597,7 +659,6 @@
                 isMusicPlaying = !isMusicPlaying;
             });
 
-            // Helper Functions
             function createFloatingElement(element, index) {
                 const floatingElement = document.createElement('div');
                 floatingElement.classList.add('floating-element');
@@ -615,13 +676,11 @@
                     floatingElement.style.fontSize = element.size;
                 }
                 
-                // Random positioning
                 const randomX = Math.random() * window.innerWidth;
                 const randomY = Math.random() * window.innerHeight;
                 floatingElement.style.left = `${randomX}px`;
                 floatingElement.style.top = `${randomY}px`;
                 
-                // Animation duration and delay
                 const duration = 5 + Math.random() * 10;
                 const delay = Math.random() * 5;
                 floatingElement.style.animationDuration = `${duration}s`;
